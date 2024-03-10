@@ -35,11 +35,18 @@ find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
 # Libtorch
-set(CMAKE_PREFIX_PATH ${DCMAKE_PREFIX_PATH}$ ${CMAKE_SOURCE_DIR}/External/libtorch/)
-find_package(Torch REQUIRED PATHS ${CMAKE_SOURCE_DIR}/External/libtorch NO_DEFAULT_PATH)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
-link_directories(${CMAKE_SOURCE_DIR}/External/libtorch/lib/)
-include_directories(${TORCH_INCLUDE_DIRS})
+if (EXISTS $ENV{HOME}/Application/anaconda3/envs/nerf-slam)
+    set(CONDA_PATH "$ENV{HOME}/Application/anaconda3/envs/nerf-slam")
+    set(CMAKE_PREFIX_PATH ${DCMAKE_PREFIX_PATH}$ ${CONDA_PATH}/lib/python3.9/site-packages/torch/ ${CONDA_PATH})
+    find_package(Torch REQUIRED PATHS ${CONDA_PATH}/lib/python3.9/site-packages/torch/share/cmake  NO_DEFAULT_PATH)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+    link_directories(${CONDA}/lib/python3.9/site-packages/torch/)
+    message(${TORCH_INCLUDE_DIRS})
+    include_directories(${TORCH_INCLUDE_DIRS})
+else ()
+    MESSAGE("Please Rebuilt the anaconda3 environment.")
+endif ()
+
 
 # YAML
 add_subdirectory(External/yaml-cpp)
