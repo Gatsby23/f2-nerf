@@ -35,8 +35,8 @@ find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
 # Libtorch
-if (EXISTS $ENV{HOME}/Application/anaconda3/envs/nerf-slam)
-    set(CONDA_PATH "$ENV{HOME}/Application/anaconda3/envs/nerf-slam")
+if (EXISTS $ENV{HOME}/Applications/anaconda3/envs/nerf-slam)
+    set(CONDA_PATH $ENV{HOME}/Applications/anaconda3/envs/nerf-slam)
     set(CMAKE_PREFIX_PATH ${DCMAKE_PREFIX_PATH}$ ${CONDA_PATH}/lib/python3.9/site-packages/torch/ ${CONDA_PATH})
     find_package(Torch REQUIRED PATHS ${CONDA_PATH}/lib/python3.9/site-packages/torch/share/cmake  NO_DEFAULT_PATH)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
